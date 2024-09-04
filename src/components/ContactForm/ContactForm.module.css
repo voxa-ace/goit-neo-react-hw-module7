@@ -2,9 +2,11 @@
   border: 1px solid #ccc;
   padding: 16px;
   border-radius: 8px;
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   margin: 0 auto;
-  box-sizing: border-box; 
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .inputField {
@@ -14,23 +16,25 @@
 
 .inputField input {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; 
+  box-sizing: border-box;
+  font-size: 1.1em;
 }
 
 .addButton {
   display: block;
-  margin: 16px auto 0; 
-  padding: 8px 16px;
+  margin: 16px auto 0;
+  padding: 12px 16px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
-  box-sizing: border-box;
+  text-align: center;
+  transition: background-color 0.3s;
 }
 
 .addButton:hover {
@@ -40,4 +44,5 @@
 .errorMessage {
   color: red;
   font-size: 12px;
+  text-align: center;
 }

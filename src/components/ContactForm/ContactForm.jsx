@@ -1,63 +1,45 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import styles from './ContactForm.module.css';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, selectContacts } from '../../redux/contactsSlice';
-import { nanoid } from 'nanoid';
+import { addContact, selectFilteredContacts } from '../../redux/contactsSlice';
+import styles from './ContactForm.module.css';
 
 const ContactForm = () => {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+  const contacts = useSelector(selectFilteredContacts);
 
-  const validationSchema = Yup.object().shape({
-    name: Yup.string()
-      .required('Name is required')
-      .min(3, 'Name is too short')
-      .max(50, 'Name is too long'),
-    number: Yup.string()
-      .required('Number is required')
-      .matches(/^[\d\+\-]+$/, 'Number must contain only digits, +, and -')
-      .min(3, 'Number is too short')
-      .max(50, 'Number is too long'),
-  });
-
-  const handleSubmit = (values, { resetForm }) => {
-    const newContact = { id: nanoid(), ...values };
-    const isDuplicate = contacts.some(contact => 
-      contact.name.toLowerCase() === values.name.toLowerCase()
-    );
-
-    if (isDuplicate) {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())) {
       alert('Contact with this name already exists!');
-    } else {
-      dispatch(addContact(newContact));
-      resetForm();
+      return;
     }
+    dispatch(addContact({ name, number }));
+    setName('');
+    setNumber('');
   };
 
   return (
-    <div className={styles.formContainer}>
-      <Formik
-        initialValues={{ name: '', number: '' }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {() => (
-          <Form>
-            <div className={styles.inputField}>
-              <Field type="text" name="name" placeholder="Name" />
-              <ErrorMessage name="name" component="div" className={styles.errorMessage} />
-            </div>
-            <div className={styles.inputField}>
-              <Field type="text" name="number" placeholder="Number" />
-              <ErrorMessage name="number" component="div" className={styles.errorMessage} />
-            </div>
-            <button type="submit" className={styles.addButton}>Add Contact</button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+    <form onSubmit={handleSubmit} className={styles.formContainer}>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+        required
+        className={styles.inputField}
+      />
+      <input
+        type="text"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
+        placeholder="Number"
+        required
+        className={styles.inputField}
+      />
+      <button type="submit" className={styles.addButton}>Add Contact</button>
+    </form>
   );
 };
 
