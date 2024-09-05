@@ -1,20 +1,6 @@
-import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit';
-import axios from 'axios';
-
-export const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
-  const response = await axios.get('https://66d60c49f5859a7042683993.mockapi.io/contacts');
-  return response.data;
-});
-
-export const addContact = createAsyncThunk('contacts/addContact', async (newContact) => {
-  const response = await axios.post('https://66d60c49f5859a7042683993.mockapi.io/contacts', newContact);
-  return response.data;
-});
-
-export const deleteContact = createAsyncThunk('contacts/deleteContact', async (contactId) => {
-  await axios.delete(`https://66d60c49f5859a7042683993.mockapi.io/contacts/${contactId}`);
-  return contactId;
-});
+// contactsSlice.js
+import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { fetchContacts, addContact, deleteContact } from './contactsOps';
 
 const contactsSlice = createSlice({
   name: 'contacts',
@@ -45,7 +31,7 @@ const contactsSlice = createSlice({
   },
 });
 
-// Мемоїзований селектор
+// Memoized selector
 export const selectFilteredContacts = createSelector(
   [(state) => state.contacts.items, (state) => state.filters.name],
   (contacts, nameFilter) => {
