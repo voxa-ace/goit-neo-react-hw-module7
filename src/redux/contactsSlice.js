@@ -1,4 +1,3 @@
-// contactsSlice.js
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './contactsOps';
 
@@ -31,7 +30,6 @@ const contactsSlice = createSlice({
   },
 });
 
-// Memoized selector
 export const selectFilteredContacts = createSelector(
   [(state) => state.contacts.items, (state) => state.filters.name],
   (contacts, nameFilter) => {

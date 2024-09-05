@@ -1,8 +1,7 @@
-// ContactList.jsx
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchContacts, deleteContact } from '../../redux/contactsOps'; // Import from contactsOps
-import { selectFilteredContacts } from '../../redux/contactsSlice'; // Import from contactsSlice
+import { fetchContacts, deleteContact } from '../../redux/contactsOps'; 
+import { selectFilteredContacts } from '../../redux/contactsSlice'; 
 import styles from './ContactList.module.css';
 
 const ContactList = () => {

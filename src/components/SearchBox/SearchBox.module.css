@@ -1,13 +1,13 @@
 .searchBoxContainer {
   display: flex;
-  justify-content: center; /* Центрує елементи по горизонталі */
+  justify-content: center; 
   max-width: 300px;
-  margin: 20px auto; /* Центрує контейнер по горизонталі */
+  margin: 20px auto;
   box-sizing: border-box;
 }
 
 .searchInput {
-  width: 100%; /* Забезпечує, що поле вводу займає всю ширину контейнера */
+  width: 100%; 
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
